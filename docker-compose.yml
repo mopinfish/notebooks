@@ -1,0 +1,17 @@
+version: '3'
+services:
+  jupyterlab:
+    image: gboeing/osmnx:latest
+    container_name: jupyter_osmnx
+    user: root
+    environment:
+      NB_UID: 1000
+      NB_GID: 100
+      GRANT_SUDO: "yes"
+    # コンテナの/jobyan/work以下をホストの./notebookにおいてデータ永続化する。
+    volumes:
+       - ".:/home/jovyan/work"
+    privileged: true
+    ports:
+      - "8888:8888"
+    command: start.sh jupyter lab --NotebookApp.token='' --ip=* --no-browser 
